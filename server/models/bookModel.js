@@ -14,6 +14,10 @@ const bookSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    subject: {
+      type: String,
+      required: true,
+    },
     link: {
       type: String,
       required: true,
@@ -23,4 +27,5 @@ const bookSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
 export const Book = mongoose.model('Book', bookSchema);

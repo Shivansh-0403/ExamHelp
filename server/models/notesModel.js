@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const notesSchema = mongoose.Schema(
   {
-    title: {
+    contributor: {
       type: String,
       required: true,
     },
@@ -14,6 +14,14 @@ const notesSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    facultyName: {
+      type: String,
+      required: true,
+    },
+    academicYear: {
+      type: Number,
+      required: true,
+    },
     link: {
       type: String,
       required: true,
@@ -23,4 +31,5 @@ const notesSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
 export const Notes = mongoose.model('Notes', notesSchema);
