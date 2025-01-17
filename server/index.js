@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
+import { v2 as cloudinary } from 'cloudinary';
 // import { Book } from "./models/bookModel.js";
 import { mongoose } from "mongoose";
 import newBookRouter from "./routes/newBookRouter.js";
@@ -37,6 +37,11 @@ app.use("/pyqs", allPYQsRouter);
 // app.use("/books", updateBookRouter);
 // app.use("/books", deleteBookRouter);
 // app.use("/upload", fileUploadRouter);
+cloudinary.config({ 
+  cloud_name: process.env.Cloud_name, 
+  api_key: process.env.API_Key, 
+  api_secret: process.env.API_secret // Click 'View API Keys' above to copy your API secret
+});
 
 mongoose
   .connect(process.env.MONGODB_URL)

@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../components/Card";
 import { useState, useEffect } from "react";
 
-const Notes = () => {
+const Books = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,4 +55,4 @@ const Notes = () => {
   );
 };
 
-export default Notes;
+export default Books;
