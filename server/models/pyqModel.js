@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const pyqSchema = mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
     courseTitle: {
       type: String,
       required: true,
@@ -14,13 +10,26 @@ const pyqSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    link: {
+    facultyName: {
       type: String,
       required: true,
+    },
+    term: {
+      type: String,
+      required: true,
+    },
+    academicYear: {
+      type: Number,
+      required: true,
+    },
+    link: {
+      type: String,
+      // required: true,
     },
   },
   {
     timestamps: true,
   }
 );
+
 export const PYQs = mongoose.model('PYQs', pyqSchema);
