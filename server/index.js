@@ -1,21 +1,23 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { v2 as cloudinary } from 'cloudinary';
-// import { Book } from "./models/bookModel.js";
 import { mongoose } from "mongoose";
+import { v2 as cloudinary } from "cloudinary"
 
 dotenv.config();
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-
-// Code Modularity - API ke different sections break
-// Models, Routes, Controllers, Optional -> (Middlewares, Utilities)
 
 const PORT = process.env.PORT;
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.get("/", (req, res) => {
@@ -36,25 +38,36 @@ app.use("/notes", allNotesRouter);
 app.use("/pyqs", newPYQsRouter);
 app.use("/pyqs", allPYQsRouter);
 
-// app.use("/books", searchBooksRouter);
-// app.use("/books", updateBookRouter);
-// app.use("/books", deleteBookRouter);
-// app.use("/upload", fileUploadRouter);
-cloudinary.config({ 
-  cloud_name: process.env.Cloud_name, 
-  api_key: process.env.API_Key, 
-  api_secret: process.env.API_secret // Click 'View API Keys' above to copy your API secret
-});
+// mongoose
+//   .connect(process.env.MONGODB_URL)
+//   .then(() => {
+//     console.log("connected to database");
+//     app.listen(PORT, () => {
+//       console.log("server running on port: ", PORT);
+//     });
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//     console.log("error connecting to db");
+//   });
 
-mongoose
-  .connect(process.env.MONGODB_URL)
+const connectDB = async () => {
+  try {
+      const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
+      console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
+      console.log("MONGODB Connected..");
+  } catch (error) {
+      console.error("MONGODB connection FAILED ", error.message);
+      process.exit(1);
+  }
+};
+
+connectDB()
   .then(() => {
-    console.log("connected to database");
-    app.listen(PORT, () => {
-      console.log("server running on port: ", PORT);
-    });
+      app.listen(process.env.PORT || 3000, () => {
+          console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+      });
   })
-  .catch((error) => {
-    console.log(error);
-    console.log("error connecting to db");
+  .catch((err) => {
+      console.error("MONGO db connection failed !!! ", err);
   });

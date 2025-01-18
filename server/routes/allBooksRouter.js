@@ -1,10 +1,10 @@
 import express from "express";
-import { Book } from "../models/bookModel.js";
+import { Books } from "../models/bookModel.js";
 const allBooksRouter = express.Router();
 
 allBooksRouter.get("/", async (req, res) => {
   try {
-    const allBooks = await Book.find();
+    const allBooks = await Books.find();
     return res.status(200).send(allBooks);
   } catch (error) {
     console.log(error.message);
