@@ -12,13 +12,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-
-const PORT = process.env.PORT;
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({ origin: 'http://localhost:3000' }));
+// CORS - Cross Origin Resource Sharing
 
 app.get("/", (req, res) => {
   return res.status(200).send("home page GET route hit");
@@ -27,16 +25,10 @@ app.get("/", (req, res) => {
 import booksRouter from "./routes/booksRouter.js";
 import notesRouter from "./routes/notesRouter.js";
 import PYQsRouter from "./routes/PYQsRouter.js";
-// import allNotesRouter from "./routes/allNotesRouter.js";
-// import allBooksRouter from "./routes/allBooksRouter.js";
-// import allPYQsRouter from "./routes/allPYQsRouter.js";
 
 app.use("/books", booksRouter);
 app.use("/notes", notesRouter);
 app.use("/pyqs", PYQsRouter);
-// app.use("/books", allBooksRouter);
-// app.use("/notes", allNotesRouter);
-// app.use("/pyqs", allPYQsRouter);
 
 // mongoose
 //   .connect(process.env.MONGODB_URL)
@@ -53,8 +45,8 @@ app.use("/pyqs", PYQsRouter);
 
 const connectDB = async () => {
   try {
-      const connectionInstance = await mongoose.connect('mongodb://127.0.0.1:27017/test');
-      // const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
+      // const connectionInstance = await mongoose.connect('mongodb://127.0.0.1:27017/test');
+      const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
       console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
       console.log("MONGODB Connected...");
   } catch (error) {
@@ -73,11 +65,3 @@ connectDB()
   .catch((err) => {
       console.error("MONGO db connection failed !!! ", err);
   });
-
-// NEXT TASK
-// get wale functions ko controllers mein add kar dena
-// ->  all, new - merge. books, pyq, notes -> route
-// book.route.js
-// BookRouter.post("//", func_name)
-// BookRouter.get("//", func_name)
-// next week frontend

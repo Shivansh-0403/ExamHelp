@@ -42,7 +42,8 @@ const createNotes = async (req, res) => {
 const fetchAllNotes = async (req, res) => {
   try {
     const allNotes = await Notes.find();
-    return res.status(200).send(allNotes);
+    console.log("Notes fetched..");
+    return res.status(200).json(allNotes);
   } catch (error) {
     console.log(error.message);
     res.status(500).send(error.message);

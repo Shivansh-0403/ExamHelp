@@ -9,7 +9,7 @@ const Notes = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch("http://localhost:3001/pyqs");
+        const response = await fetch("http://localhost:5000/pyqs");
         const data = await response.json();
         setNotes(data);
         setLoading(false);
