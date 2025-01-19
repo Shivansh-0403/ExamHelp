@@ -24,19 +24,19 @@ app.get("/", (req, res) => {
   return res.status(200).send("home page GET route hit");
 });
 
-import newBookRouter from "./routes/newBooksRouter.js";
-import newNotesRouter from "./routes/newNotesRouter.js";
-import newPYQsRouter from "./routes/newPYQsRouter.js";
-import allNotesRouter from "./routes/allNotesRouter.js";
-import allBooksRouter from "./routes/allBooksRouter.js";
-import allPYQsRouter from "./routes/allPYQsRouter.js";
+import booksRouter from "./routes/booksRouter.js";
+import notesRouter from "./routes/notesRouter.js";
+import PYQsRouter from "./routes/PYQsRouter.js";
+// import allNotesRouter from "./routes/allNotesRouter.js";
+// import allBooksRouter from "./routes/allBooksRouter.js";
+// import allPYQsRouter from "./routes/allPYQsRouter.js";
 
-app.use("/books", newBookRouter);
-app.use("/books", allBooksRouter);
-app.use("/notes", newNotesRouter);
-app.use("/notes", allNotesRouter);
-app.use("/pyqs", newPYQsRouter);
-app.use("/pyqs", allPYQsRouter);
+app.use("/books", booksRouter);
+app.use("/notes", notesRouter);
+app.use("/pyqs", PYQsRouter);
+// app.use("/books", allBooksRouter);
+// app.use("/notes", allNotesRouter);
+// app.use("/pyqs", allPYQsRouter);
 
 // mongoose
 //   .connect(process.env.MONGODB_URL)
@@ -58,7 +58,8 @@ const connectDB = async () => {
       console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
       console.log("MONGODB Connected...");
   } catch (error) {
-      console.error("MONGODB connection FAILED ", error.message);
+      console.error("MONGODB connection FAILED ");
+      console.error(error.message);
       process.exit(1);
   }
 };
