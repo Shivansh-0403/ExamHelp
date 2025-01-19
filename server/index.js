@@ -12,8 +12,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
 
 const app = express();
 app.use(express.json());
@@ -53,8 +52,8 @@ app.use("/pyqs", allPYQsRouter);
 
 const connectDB = async () => {
   try {
-      const connectionInstance = await mongoose.connect('mongodb://127.0.0.1:27017/test');
-      // const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
+      // const connectionInstance = await mongoose.connect('mongodb://127.0.0.1:27017/test');
+      const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
       console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
       console.log("MONGODB Connected...");
   } catch (error) {
