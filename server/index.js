@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   return res.status(200).send("home page GET route hit");
 });
 
-import newBookRouter from "./routes/newBookRouter.js";
+import newBookRouter from "./routes/newBooksRouter.js";
 import newNotesRouter from "./routes/newNotesRouter.js";
 import newPYQsRouter from "./routes/newPYQsRouter.js";
 import allNotesRouter from "./routes/allNotesRouter.js";
@@ -53,9 +53,10 @@ app.use("/pyqs", allPYQsRouter);
 
 const connectDB = async () => {
   try {
-      const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
+      const connectionInstance = await mongoose.connect('mongodb://127.0.0.1:27017/test');
+      // const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
       console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
-      console.log("MONGODB Connected..");
+      console.log("MONGODB Connected...");
   } catch (error) {
       console.error("MONGODB connection FAILED ", error.message);
       process.exit(1);
@@ -65,9 +66,17 @@ const connectDB = async () => {
 connectDB()
   .then(() => {
       app.listen(process.env.PORT || 3000, () => {
-          console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+          console.log(`⚙️  Server is running at port : ${process.env.PORT}`);
       });
   })
   .catch((err) => {
       console.error("MONGO db connection failed !!! ", err);
   });
+
+// NEXT TASK
+// get wale functions ko controllers mein add kar dena
+// ->  all, new - merge. books, pyq, notes -> route
+// book.route.js
+// BookRouter.post("//", func_name)
+// BookRouter.get("//", func_name)
+// next week frontend

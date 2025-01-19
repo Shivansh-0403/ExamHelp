@@ -1,6 +1,6 @@
 import express from "express";
 import { upload } from "../middlewares/multer.js";
-import { createBooks } from "../controllers/bookController.js";
+import { createBooks } from "../controllers/booksController.js";
 
 const newBooksRouter = express.Router();
 

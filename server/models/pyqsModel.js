@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const pyqSchema = mongoose.Schema(
+const pyqsSchema = mongoose.Schema(
   {
     courseTitle: {
       type: String,
@@ -32,4 +32,4 @@ const pyqSchema = mongoose.Schema(
   }
 );
 
-export const PYQs = mongoose.model('PYQs', pyqSchema);
+export const PYQs = mongoose.model('PYQs', pyqsSchema);

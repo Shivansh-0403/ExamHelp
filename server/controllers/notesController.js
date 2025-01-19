@@ -39,4 +39,14 @@ const createNotes = async (req, res) => {
     }
 }
 
-export { createNotes }
+const fetchAllNotes = async (req, res) => {
+  try {
+    const allNotes = await Notes.find();
+    return res.status(200).send(allNotes);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send(error.message);
+  }
+};
+
+export { createNotes, fetchAllNotes }
