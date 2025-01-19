@@ -9,7 +9,7 @@ const Notes = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch("http://localhost:3001/notes");
+        const response = await fetch("http://localhost:5000/notes");
         const data = await response.json();
         setNotes(data);
         setLoading(false);
@@ -24,22 +24,22 @@ const Notes = () => {
   return (
     <section
       id="books"
-      class="bg-light mt-4"
+      className="bg-light mt-4"
       style={{ padding: "60px 0px", backgroundColor: "rgb(240, 238, 238)" }}
     >
-      <div class="container-lg">
-        <div class="text-center">
+      <div className="container-lg">
+        <div className="text-center">
           <h2>
-            <i class="bi bi-info-circle-fill d-none d-md-inline"></i> Notes
+            <i className="bi bi-info-circle-fill d-none d-md-inline"></i> Notes
           </h2>
-          {/* <p class="lead text-muted">Lorem ipsum dolor sit amet.</p> */}
+          {/* <p className="lead text-muted">Lorem ipsum dolor sit amet.</p> */}
         </div>
         {loading ? (
         <p>Loading...</p>
       ) : (
         <ul>
           {notes.map((note) => (
-            <li key={note._id} class="list-unstyled">
+            <li key={note._id} className="list-unstyled">
               <Card
                 title={note.title}
                 courseTitle={note.courseTitle}
