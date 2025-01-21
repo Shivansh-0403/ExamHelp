@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Filetypepyqs from "../components/FileTypePYQs";
-import Filetypenotes from "../components/FileTypeNotes";
-import Filetypebooks from "../components/FileTypeBooks";
+import FileTypePYQs from "../components/FileTypePYQs";
+import FileTypeNotes from "../components/FileTypeNotes";
+import FileTypeBooks from "../components/FileTypeBooks";
 
 export default function Contribute() {
   const [fileType, setFileType] = useState("");
@@ -24,61 +24,7 @@ export default function Contribute() {
 
         <div className="row justify-content-center my-5">
           <div className="col-lg-6">
-            <form action="">
-{/*               
-            <label htmlFor="contribution" className="form-label">
-              File Type
-            </label>
-            <div className="input-group mb-4">
-              <span className="input-group-text">
-                <i className="bi bi-question-circle-fill"></i>
-              </span>
-              <div className="d-flex align-items-center ps-3">
-                <div className="form-check me-3">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="fileType"
-                    id="fileTypeNotes"
-                    value="Notes"
-                    checked={fileType === "Notes"}
-                    onChange={handleFileTypeChange}
-                  />
-                  <label className="form-check-label" htmlFor="fileTypeNotes">
-                    Notes
-                  </label>
-                </div>
-                <div className="form-check me-3">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="fileType"
-                    id="fileTypePYQs"
-                    value="PYQs"
-                    checked={fileType === "PYQs"}
-                    onChange={handleFileTypeChange}
-                  />
-                  <label className="form-check-label" htmlFor="fileTypePYQs">
-                    PYQ's
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="fileType"
-                    id="fileTypeBooks"
-                    value="Books"
-                    checked={fileType === "Books"}
-                    onChange={handleFileTypeChange}
-                  />
-                  <label className="form-check-label" htmlFor="fileTypeBooks">
-                    Books
-                  </label>
-                </div>
-              </div>
-            </div> */}
-
+            <div>
               <label htmlFor="contribution" className="form-label">
                 File Type
               </label>
@@ -94,10 +40,10 @@ export default function Contribute() {
                 </select>
               </div>
 
-              {fileType === "PYQs" && <Filetypepyqs />}
-              {fileType === "Notes" && <Filetypenotes />}
-              {fileType === "Books" && <Filetypebooks />}
-            </form>
+              {fileType === "PYQs" && <FileTypePYQs />}
+              {fileType === "Notes" && <FileTypeNotes />}
+              {fileType === "Books" && <FileTypeBooks />}
+            </div>
           </div>
         </div>
       </div>

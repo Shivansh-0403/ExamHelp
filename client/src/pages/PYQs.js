@@ -3,7 +3,8 @@ import Card from "../components/Card";
 import { useState, useEffect } from "react";
 
 const PYQs = () => {
-  const [PYQs, setPYQs] = useState([]);
+  // useState Hook to store the state of PYQs array
+  const [PYQs, setPYQs] = useState([]); // Array of Objects
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const PYQs = () => {
           {PYQs.map((pyqsObj) => (
             <div key={pyqsObj._id} classname="list-unstyled">
               <Card
+                // props for Card component
                 courseTitle={pyqsObj.courseTitle}
                 courseCode={pyqsObj.courseCode}
                 facultyName={pyqsObj.facultyName}
