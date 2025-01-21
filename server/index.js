@@ -24,11 +24,11 @@ app.get("/", (req, res) => {
 
 import booksRouter from "./routes/booksRouter.js";
 import notesRouter from "./routes/notesRouter.js";
-import PYQsRouter from "./routes/pyqsRouter.js";
+import pyqsRouter from "./routes/pyqsRouter.js";
 
 app.use("/books", booksRouter);
 app.use("/notes", notesRouter);
-app.use("/pyqs", PYQsRouter);
+app.use("/pyqs", pyqsRouter);
 
 // mongoose
 //   .connect(process.env.MONGODB_URL)

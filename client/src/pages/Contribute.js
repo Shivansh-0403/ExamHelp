@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Filetypepyqs from "../components/Filetypepyqs";
-import Filetypenotes from "../components/Filetypenotes";
-import Filetypebooks from "../components/Filetypebooks";
+import Filetypepyqs from "../components/FileTypePYQs";
+import Filetypenotes from "../components/FileTypeNotes";
+import Filetypebooks from "../components/FileTypeBooks";
 
 export default function Contribute() {
   const [fileType, setFileType] = useState("");

@@ -2,12 +2,12 @@ import express from "express";
 import { upload } from "../middlewares/multer.js";
 import { createPYQs, fetchAllPYQs } from "../controllers/pyqsController.js";
 
-const PYQsRouter = express.Router();
+const pyqsRouter = express.Router();
 
-PYQsRouter.post("/upload", upload.single("file"), createPYQs);
-PYQsRouter.get("/",fetchAllPYQs);
+pyqsRouter.post("/upload", upload.single("file"), createPYQs);
+pyqsRouter.get("/",fetchAllPYQs);
 
-export default PYQsRouter;
+export default pyqsRouter;
 
 // Router - url check, 
 // controller consists of functions that are executed on hitting these routes

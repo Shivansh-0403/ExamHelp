@@ -1,5 +1,5 @@
 import {HashRouter, Routes, Route} from 'react-router-dom';
-// import './components/style.css'
+import './pages/style.css'
 import Navbar from './components/Navbar';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
