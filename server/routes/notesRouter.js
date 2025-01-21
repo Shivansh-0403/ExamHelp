@@ -5,6 +5,6 @@ import { createNotes, fetchAllNotes } from "../controllers/notesController.js";
 const notesRouter = express.Router();
 
 notesRouter.post("/upload", upload.single("file"), createNotes);
-notesRouter.get("", fetchAllNotes)
+notesRouter.get("/", fetchAllNotes)
 
 export default notesRouter;

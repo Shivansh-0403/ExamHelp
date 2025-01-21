@@ -100,10 +100,6 @@ const Filetypebooks = () => {
                   Submit <i class="bi bi-send-fill"></i>
                 </button>
               </div>
-
-              
-
-              
             </form>
           </div>
         </div>

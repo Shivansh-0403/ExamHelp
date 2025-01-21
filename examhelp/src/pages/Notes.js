@@ -23,7 +23,7 @@ const Notes = () => {
   }, []);
   return (
     <section
-      id="books"
+      id="notes"
       className="bg-light mt-4"
       style={{ padding: "60px 0px", backgroundColor: "rgb(240, 238, 238)" }}
     >

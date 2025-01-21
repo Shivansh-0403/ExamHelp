@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Filetype = (PYQ) => {
+const Filetypenotes = () => {
   return (
     <section id="contribute" class="bg-light mt-4" style={{ backgroundColor: "rgb(240, 238, 238)" }}>
       <div class="container-lg">
@@ -9,25 +9,9 @@ const Filetype = (PYQ) => {
           <div class="col-lg-6">
             <form action="">
 
-              
-              <label for="exam-title" class="form-label">
-                Exam Title:
+              <label for="title" class="form-label">
+                Title:
               </label>
-              {/* <div class="input-group mb-4">
-                <span class="input-group-text">
-                  <i class="bi bi-question-circle-fill"></i>
-                </span>
-                <select class="form-select" aria-label="Default select example" id="subject">
-                  <option selected>Open this menu</option>
-                  <option value="mid">Mid Term</option>
-                  <option value="end">End Term</option>
-                </select>
-              </div> */}
-
-
-              {/* <label for="subject" class="form-label">
-                Subject:
-              </label> */}
               <div class="mb-4 input-group">
                 <span class="input-group-text">
                   <i class="bi bi-person-fill"></i>
@@ -35,7 +19,7 @@ const Filetype = (PYQ) => {
                 <input
                   type="text"
                   class="form-control"
-                  id="subject"
+                  id="title"
                   placeholder="e.g. Operating System"
                   required
                 />
@@ -78,7 +62,7 @@ const Filetype = (PYQ) => {
               </div>
 
               <div class="mb-3">
-                <label for="formFileSm" class="form-label">Upload PYQ (pdf or docx)</label>
+                <label for="formFileSm" class="form-label">Upload Notes (pdf or docx)</label>
                 <input class="form-control form-control-sm" id="formFileSm" type="file"/>
               </div>
 
@@ -87,10 +71,6 @@ const Filetype = (PYQ) => {
                   Submit <i class="bi bi-send-fill"></i>
                 </button>
               </div>
-
-              
-
-              
             </form>
           </div>
         </div>
@@ -99,4 +79,4 @@ const Filetype = (PYQ) => {
   )
 }
 
-export default Filetype
+export default Filetypenotes

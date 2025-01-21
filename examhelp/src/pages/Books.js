@@ -3,24 +3,25 @@ import Card from "../components/Card";
 import { useState, useEffect } from "react";
 
 const Books = () => {
-  const [notes, setNotes] = useState([]);
+  const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNotes = async () => {
+    const fetchBooks = async () => {
       try {
         const response = await fetch("http://localhost:5000/books");
         const data = await response.json();
-        setNotes(data);
+        setBooks(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching notes:", error.message);
+        console.error("Error fetching books:", error.message);
         setLoading(false);
       }
     };
 
-    fetchNotes();
+    fetchBooks();
   }, []);
+  
   return (
     <section
       id="books"
@@ -38,13 +39,13 @@ const Books = () => {
         <p>Loading...</p>
       ) : (
         <ul>
-          {notes.map((note) => (
-            <li key={note._id} class="list-unstyled">
+          {books.map((book) => (
+            <li key={book._id} class="list-unstyled">
               <Card
-                title={note.title}
-                courseTitle={note.author}
-                courseCode={note.publishYear}
-                link={note.link}
+                title={book.title}
+                courseTitle={book.author}
+                courseCode={book.publishYear}
+                link={book.link}
               />
             </li>
           ))}
