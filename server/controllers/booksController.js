@@ -35,8 +35,8 @@ const createBooks = async (req, res) => {
       link: url,
     };
 
-    const books = await Books.create(newBooks);
-    console.log(books);
+    const book = await Books.create(newBooks);
+    console.log(book);
     return res.status(201).send(books);
   } catch (error) {
     console.log(error.message);
@@ -47,6 +47,7 @@ const createBooks = async (req, res) => {
 const fetchAllBooks = async (req, res) => {
   try {
     const allBooks = await Books.find();
+    console.log("Books fetched..");
     return res.status(200).send(allBooks);
   } catch (error) {
     console.log(error.message);
@@ -55,3 +56,13 @@ const fetchAllBooks = async (req, res) => {
 };
 
 export { createBooks, fetchAllBooks };
+
+// word - req.body
+// Books - .find({courseTitle: word || courseCode: word || facultyName: word || term: word || academicYear: word})
+// Notes - .find({contributor: word || courseTitle: word || courseCode: word || facultyName: word || academicYear: word})
+// PYQs - .find({courseTitle: word || courseCode: word || facultyName: word || term: word || academicYear: word})
+
+// or else do manually
+// books = Books.find();
+// no
+// books = Books.find({title: word || author: word || publishYear: word || subject: word})

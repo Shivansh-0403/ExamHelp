@@ -44,9 +44,9 @@ const createPYQs = async (req, res) => {
       link: url,
     };
 
-    const pyqs = await PYQs.create(newPYQs);
-    console.log(pyqs);
-    return res.status(201).send(pyqs);
+    const pyq = await PYQs.create(newPYQs);
+    console.log(pyq);
+    return res.status(201).send(pyq);
   } catch (error) {
     console.log(error.message);
     res.status(500).send(error.message);
@@ -56,6 +56,7 @@ const createPYQs = async (req, res) => {
 const fetchAllPYQs = async (req, res) => {
   try {
     const allPYQs = await PYQs.find();
+    console.log("PYQs fetched..");
     return res.status(200).send(allPYQs);
   } catch (error) {
     console.log(error.message);

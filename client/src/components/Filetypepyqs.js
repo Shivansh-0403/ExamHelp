@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Filetypepyqs = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     courseTitle: '',
     courseCode: '',
@@ -31,11 +33,12 @@ const Filetypepyqs = () => {
     data.append('file', formData.file);
 
     try {
-      const response = await fetch('http://localhost:5000/PYQs', {
+      const response = await fetch('http://localhost:5000/pyqs/upload', {
         method: 'POST',
         body: data,
       });
 
+      console.log(response);
       if (response.ok) {
         alert('PYQ submitted successfully!');
         setFormData({
@@ -46,6 +49,7 @@ const Filetypepyqs = () => {
           academicYear: '',
           file: null,
         });
+        navigate('/PYQs');
       } else {
         alert('Failed to submit PYQ. Please try again.');
       }
@@ -189,7 +193,7 @@ const Filetypepyqs = () => {
               </div>
 
               <div className="mb-4 text-center">
-                <button type="submit" className="btn btn-warning">
+                <button type="submit" className="btn btn-warning" onClick={handleSubmit}>
                   Submit <i className="bi bi-send-fill"></i>
                 </button>
               </div>
