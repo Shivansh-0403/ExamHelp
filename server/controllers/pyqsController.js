@@ -16,7 +16,7 @@ const createPYQs = async (req, res) => {
     // check for null values
     // file upload to cloud
     // get the url
-    // create an ibject according to model shcema
+    // create an ibject according to model schema
     // saVE
 
     // Destructuring
@@ -26,12 +26,12 @@ const createPYQs = async (req, res) => {
     if (!courseTitle || !courseCode || !facultyName || !term || !academicYear) {
       return res.status(400).send({ message: "one or more fields missing!" });
     }
-
+    console.log(req.body)
     // Upload the new PYQs file to Cloudinary
     const file = req.file;
     console.log(file);
     const fileUpload = await uploadOnCloudinary(file.path);
-    const url = fileUpload.url;
+    const url = fileUpload?.url || "";
 
     console.log(url);
 

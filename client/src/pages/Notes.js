@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
-import { useState, useEffect } from "react";
+import SkeletonCard from "../components/shimmerCard";
+import { useSearch } from "../context/searchContext";
 
 const Notes = () => {
-  const [notes, setNotes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState([]); // Stores all fetched notes
+  const [loading, setLoading] = useState(true); // Controls the loading state
+  const { searchQuery } = useSearch(); // Access search query from SearchContext
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
         const response = await fetch("http://localhost:5000/notes");
         const data = await response.json();
-        setNotes(data);
-        setLoading(false);
+        setNotes(data); // Store fetched notes
+        setLoading(false); // Stop the loading state
       } catch (error) {
         console.error("Error fetching notes:", error.message);
         setLoading(false);
@@ -21,6 +23,20 @@ const Notes = () => {
 
     fetchNotes();
   }, []);
+
+  // Filter notes based on the search query across all fields
+  const filteredNotes = notes.filter((note) =>
+    [
+      "courseTitle",
+      "courseCode",
+      "facultyName",
+      "academicYear",
+      "contributor",
+    ].some((key) =>
+      note[key]?.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   return (
     <section
       id="notes"
@@ -32,24 +48,41 @@ const Notes = () => {
           <h2>
             <i className="bi bi-info-circle-fill d-none d-md-inline"></i> Notes
           </h2>
-          {/* <p className="lead text-muted">Lorem ipsum dolor sit amet.</p> */}
         </div>
+
+        {/* Render Skeleton Cards while loading */}
         {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {notes.map((note) => (
-            <li key={note._id} className="list-unstyled">
-              <Card
-                title={note.title}
-                courseTitle={note.courseTitle}
-                courseCode={note.courseCode}
-                link={note.link}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
+          <ul className="list-unstyled">
+            {Array(5)
+              .fill(0)
+              .map((_, index) => (
+                <li key={index}>
+                  <SkeletonCard />
+                </li>
+              ))}
+          </ul>
+        ) : filteredNotes.length > 0 ? (
+          // Render filtered notes
+          <ul className="list-unstyled">
+            {filteredNotes.map((note) => (
+              <li key={note._id}>
+                <Card
+                  courseTitle={note.courseTitle}
+                  courseCode={note.courseCode}
+                  facultyName={note.facultyName}
+                  academicYear={note.academicYear}
+                  contributor={note.contributor}
+                  link={note.link}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          // Show no results message if no notes match the query
+          <div className="text-center">
+            <p className="text-muted">No notes found for "{searchQuery}".</p>
+          </div>
+        )}
       </div>
     </section>
   );

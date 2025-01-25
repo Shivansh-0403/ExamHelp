@@ -35,8 +35,8 @@ const createBooks = async (req, res) => {
       link: url,
     };
 
-    const book = await Books.create(newBooks);
-    console.log(book);
+    const books = await Books.create(newBooks);
+    console.log(books);
     return res.status(201).send(books);
   } catch (error) {
     console.log(error.message);

@@ -45,7 +45,7 @@ app.use("/pyqs", pyqsRouter);
 
 const connectDB = async () => {
   try {
-    console.log("mongo_uri",process.env.MONGO_DB_URI);
+    // console.log("mongo_uri",process.env.MONGO_DB_URI);
     // const connectionInstance = await mongoose.connect('mongodb://127.0.0.1:27017/test');
     const connectionInstance = await mongoose.connect(process.env.MONGO_DB_URI);
     console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
