@@ -1,10 +1,22 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSearch } from "../context/searchContext";
+import { useEffect, useState } from "react";
+import defaultProfilePic from "./images/dp.png"; // Import the default DP
 
 function Navbar() {
   const { searchQuery, updateSearchQuery } = useSearch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("User"); // For dynamic user greeting
+
+  useEffect(() => {
+    // Check if user is logged in by verifying the presence of a token in localStorage
+    const token = localStorage.getItem("authToken");
+    const storedUserName = localStorage.getItem("userName");
+    setIsLoggedIn(!!token); // Update login status
+    setUserName(storedUserName || "User"); // Update user name
+  }, []); // Runs once when the component mounts
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -20,82 +32,110 @@ function Navbar() {
     }
   };
 
+  const handleLogout = () => {
+    // Clear user data and token on logout
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userName");
+    setIsLoggedIn(false); // Update login state
+    navigate("/"); // Redirect to login page
+  };
+
   return (
     <div>
-      <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
+      <nav className="navbar navbar-expand-md navbar-dark bg-secondary fixed-top">
         <div className="container-xxl">
-          <a href=" " className="navbar-brand">
-            <span className="fw-bold text-light">
-              <i className="bi bi-person-circle"></i> eXAMhELP
-            </span>
-          </a>
-          {/* Show search bar only on /Books, /Notes, or /PYQs */}
-          {["/Books", "/Notes", "/PYQs"].includes(location.pathname) && (
-            <form className="d-flex" role="search" onSubmit={handleSearch}>
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                value={searchQuery}
-                onChange={(e) => updateSearchQuery(e.target.value)}
-              />
-              <button className="btn btn-outline-info" type="submit">
-                Search
-              </button>
-            </form>
-          )}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#main-nav"
-            aria-controls="main-nav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          {/* Logo that redirects to Home */}
+          <Link to="/" className="navbar-brand fw-bold text-light">
+            <i className="bi bi-circle"></i> eXAMhELP
+          </Link>
 
-          <div
-            className="collapse navbar-collapse justify-content-end align-center"
-            id="main-nav"
-          >
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  <i className="bi bi-house-door-fill d-none d-md-inline"></i>
-                  Home
+          {/* Left Section - Notes, PYQs, Books */}
+          <ul className="navbar-nav me-auto">
+            <li className="nav-item">
+              <Link to="/Notes" className="nav-link text-light fw-semibold">
+                Notes
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/PYQs" className="nav-link text-light fw-semibold">
+                PYQs
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/Books" className="nav-link text-light fw-semibold">
+                Books
+              </Link>
+            </li>
+          </ul>
+
+          {/* Middle Section - Search Bar */}
+          <form className="d-flex mx-auto" role="search" onSubmit={handleSearch}>
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              value={searchQuery}
+              onChange={(e) => updateSearchQuery(e.target.value)}
+            />
+          </form>
+
+          {/* Right Section */}
+          <div className="d-flex align-items-center">
+            {!isLoggedIn ? (
+              <>
+                {/* Show Login/Register when NOT logged in */}
+                <Link to="/login" className="btn btn-sm btn-light fw-semibold me-2">
+                  Login
                 </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/Notes" className="nav-link">
-                  <i className="bi bi-file-earmark-person d-none d-md-inline"></i>
-                  Notes
+                <Link to="/register" className="btn btn-sm btn-warning fw-semibold">
+                  Register
                 </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/PYQs" className="nav-link">
-                  <i className="bi bi-info-circle-fill d-none d-md-inline"></i>
-                  PYQ's
+              </>
+            ) : (
+              <>
+                {/* Show User Greeting and Dropdown when logged in */}
+                {/* Contribute Button */}
+                <Link to="/Contribute" className="btn btn-md btn-warning fw-bold me-3">
+                  Contribute
                 </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/Books" className="nav-link">
-                  <i className="bi bi-upload d-none d-md-inline"></i>
-                  Books
-                </Link>
-              </li>
-              <li className="nav-item ms-2 mt-1 d-none d-md-inline">
-                <Link
-                  to="/Contribute"
-                  className="btn btn-md btn-warning fw-bold"
-                >
-                  <i className="bi bi-person-workspace d-none d-md-inline"></i>
-                  Contribute Us
-                </Link>
-              </li>
-            </ul>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-light d-flex align-items-center dropdown-toggle"
+                    type="button"
+                    id="userDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {/* User Image */}
+                    <img
+                      src={defaultProfilePic} // Use the default profile picture from the local folder
+                      alt="User"
+                      className="rounded-circle me-2"
+                      width="40"
+                      height="40"
+                    />
+                    {/* User Greeting */}
+                    <span className="text-dark">Hi, {userName}</span>
+                  </button>
+                  <ul
+                    className="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="userDropdown"
+                  >
+                    <li>
+                      <Link to="/profile" className="dropdown-item">
+                        View Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item" onClick={handleLogout}>
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </nav>
